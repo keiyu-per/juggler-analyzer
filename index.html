@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111318">
+<title>JUGGLER ANALYZER v0.1</title>
+<style>
+:root{
+  --bg:#0f1115; --card:#171a21; --card2:#1d2129; --text:#f5f7fb; --muted:#9aa3b2;
+  --line:#2b313c; --accent:#69e38f; --warn:#ffd166; --bad:#ff6b6b; --blue:#74a7ff;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.app{max-width:680px;margin:0 auto;padding:18px 14px 40px}
+h1{font-size:22px;margin:4px 0 2px;letter-spacing:.03em}
+.sub{color:var(--muted);font-size:12px;margin-bottom:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin:12px 0}
+.card h2{font-size:15px;margin:0 0 12px;color:#dfe5ef}
+.machine-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.machine-btn{appearance:none;border:1px solid var(--line);background:var(--card2);color:var(--text);border-radius:14px;padding:15px 10px;font-weight:700;font-size:15px}
+.machine-btn.active{outline:2px solid var(--accent);border-color:transparent;background:#1b2a21}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field label{display:block;font-size:12px;color:var(--muted);margin:0 0 6px}
+input{width:100%;font-size:20px;padding:12px;border-radius:12px;border:1px solid var(--line);background:#101319;color:var(--text);outline:none}
+input:focus{border-color:var(--blue)}
+.smallnote{font-size:11px;color:var(--muted);margin-top:8px;line-height:1.55}
+.primary,.secondary,.danger{width:100%;border:0;border-radius:14px;padding:14px 12px;font-weight:800;font-size:15px;margin-top:10px}
+.primary{background:var(--accent);color:#07150b}.secondary{background:#252b35;color:var(--text);border:1px solid var(--line)}.danger{background:#2b2022;color:#ffb8b8;border:1px solid #543136}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{background:var(--card2);border-radius:14px;padding:12px}
+.stat .k{font-size:11px;color:var(--muted)}.stat .v{font-size:20px;font-weight:800;margin-top:4px}
+.hero{text-align:center;padding:8px 0 2px}
+.hero .label{font-size:13px;color:var(--muted)}
+.hero .score{font-size:44px;font-weight:900;line-height:1;margin:8px 0}
+.hero .grade{font-size:18px;font-weight:800}
+.barrow{display:grid;grid-template-columns:48px 1fr 42px;gap:8px;align-items:center;margin:10px 0}
+.track{height:12px;background:#0f1218;border-radius:999px;overflow:hidden;border:1px solid #252b35}
+.fill{height:100%;background:linear-gradient(90deg,#6f8fff,#75e49a);border-radius:999px}
+.right{text-align:right;font-variant-numeric:tabular-nums}
+.pills{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.pill{background:var(--card2);border-radius:14px;padding:12px;text-align:center}
+.pill .big{font-size:22px;font-weight:900}
+.reason{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.reason:last-child{border-bottom:0}
+.good{color:var(--accent)}.warn{color:var(--warn)}.bad{color:var(--bad)}.muted{color:var(--muted)}
+.history{font-size:13px}
+.histrow{display:grid;grid-template-columns:1fr auto;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#eef3f8;color:#111;padding:10px 14px;border-radius:999px;font-size:13px;font-weight:800;opacity:0;pointer-events:none;transition:.2s}
+.toast.show{opacity:1}
+.hidden{display:none!important}
+footer{color:var(--muted);font-size:10px;line-height:1.5;margin-top:14px}
+</style>
+</head>
+<body>
+<div class="app">
+  <h1>JUGGLER ANALYZER</h1>
+  <div class="sub">v0.1 — iPhone実戦用 / 端末内保存</div>
+
+  <section class="card">
+    <h2>機種</h2>
+    <div class="machine-grid" id="machineGrid">
+      <button class="machine-btn active" data-machine="my">マイジャグ</button>
+      <button class="machine-btn" data-machine="gogo">ゴーゴー</button>
+      <button class="machine-btn" data-machine="im">アイム</button>
+      <button class="machine-btn" data-machine="other">その他</button>
+    </div>
+    <div id="otherWrap" class="field hidden" style="margin-top:10px">
+      <label>機種名</label><input id="otherName" placeholder="例：ファンキージャグラー2">
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>現在データ</h2>
+    <div class="field"><label>総回転数</label><input id="games" type="number" inputmode="numeric" min="0" placeholder="5272"></div>
+    <div class="grid2" style="margin-top:10px">
+      <div class="field"><label>BIG</label><input id="big" type="number" inputmode="numeric" min="0" placeholder="21"></div>
+      <div class="field"><label>REG</label><input id="reg" type="number" inputmode="numeric" min="0" placeholder="20"></div>
+    </div>
+    <div class="field" style="margin-top:10px"><label>着席後 累計ブドウ（任意）</label><input id="grapes" type="number" inputmode="numeric" min="0" placeholder="229"></div>
+  </section>
+
+  <section class="card">
+    <h2>着席時データ <span class="muted">（任意）</span></h2>
+    <div class="field"><label>着席時 総回転数</label><input id="startGames" type="number" inputmode="numeric" min="0" placeholder="3877"></div>
+    <div class="grid2" style="margin-top:10px">
+      <div class="field"><label>着席時 BIG</label><input id="startBig" type="number" inputmode="numeric" min="0" placeholder="15"></div>
+      <div class="field"><label>着席時 REG</label><input id="startReg" type="number" inputmode="numeric" min="0" placeholder="14"></div>
+    </div>
+    <div class="smallnote">ブドウを評価に使うには「着席時 総回転数」も入力してください。</div>
+    <button class="primary" id="evaluate">評価を更新</button>
+  </section>
+
+  <section class="card hidden" id="resultCard">
+    <h2>現在値</h2>
+    <div class="stats">
+      <div class="stat"><div class="k">BIG</div><div class="v" id="bigRate">—</div></div>
+      <div class="stat"><div class="k">REG</div><div class="v" id="regRate">—</div></div>
+      <div class="stat"><div class="k">合算</div><div class="v" id="bonusRate">—</div></div>
+      <div class="stat"><div class="k">ブドウ</div><div class="v" id="grapeRate">—</div></div>
+    </div>
+  </section>
+
+  <section class="card hidden" id="scoreCard">
+    <h2>総合評価</h2>
+    <div class="hero">
+      <div class="label">高設定寄り指数</div>
+      <div class="score" id="score">—</div>
+      <div class="grade" id="grade">—</div>
+      <div class="smallnote">設定別適合度から算出する0〜100の相対指数です。勝率・期待収支・設定確率ではありません。</div>
+    </div>
+    <div class="pills">
+      <div class="pill"><div class="muted">最も適合</div><div class="big" id="bestSetting">—</div></div>
+      <div class="pill"><div class="muted">サンプル充足度</div><div class="big" id="sample">—</div></div>
+    </div>
+  </section>
+
+  <section class="card hidden" id="fitCard">
+    <h2>設定別適合度</h2>
+    <div id="bars"></div>
+    <div class="smallnote">BIG・REGは総回転数から多項分布の尤度を計算。条件が揃えば着席後ブドウも参考値として加味します。均等な事前条件で正規化した相対値です。</div>
+  </section>
+
+  <section class="card hidden" id="reasonCard">
+    <h2>評価材料</h2>
+    <div id="reasons"></div>
+  </section>
+
+  <section class="card hidden" id="copyCard">
+    <h2>ChatGPT連携</h2>
+    <button class="secondary" id="copyShort">短縮データをコピー</button>
+    <button class="primary" id="copyDetail">ChatGPT用にコピー</button>
+  </section>
+
+  <section class="card">
+    <h2>この実戦の履歴</h2>
+    <div id="history" class="history muted">まだ評価履歴はありません。</div>
+    <button class="danger" id="newSession">新しい実戦を開始</button>
+  </section>
+
+  <footer>
+    判定は統計的な目安です。小役確率には解析・実戦上の参考値を含みます。「その他」は基本確率のみ表示し、設定別適合度は算出しません。
+  </footer>
+</div>
+<div class="toast" id="toast">コピーしました</div>
+
+<script>
+const machines = {
+  my: {
+    name:"マイジャグラーV",
+    settings:[
+      {s:1,b:273.1,r:409.6,g:5.91},{s:2,b:270.8,r:385.5,g:5.87},
+      {s:3,b:266.4,r:336.1,g:5.83},{s:4,b:254.0,r:290.0,g:5.80},
+      {s:5,b:240.1,r:268.6,g:5.76},{s:6,b:229.1,r:229.1,g:5.67}
+    ]
+  },
+  gogo: {
+    name:"ゴーゴージャグラー3",
+    settings:[
+      {s:1,b:259.0,r:354.2,g:6.25},{s:2,b:258.0,r:332.7,g:6.20},
+      {s:3,b:257.0,r:306.2,g:6.15},{s:4,b:254.0,r:268.6,g:6.07},
+      {s:5,b:247.3,r:247.3,g:6.00},{s:6,b:234.9,r:234.9,g:5.92}
+    ]
+  },
+  im: {
+    name:"SアイムジャグラーEX",
+    settings:[
+      {s:1,b:273.1,r:439.8,g:6.02},{s:2,b:269.7,r:399.6,g:6.02},
+      {s:3,b:269.7,r:331.0,g:6.02},{s:4,b:259.0,r:315.1,g:6.02},
+      {s:5,b:259.0,r:255.0,g:6.02},{s:6,b:255.0,r:255.0,g:5.80}
+    ]
+  }
+};
+
+let machine = localStorage.getItem("ja_machine") || "my";
+let session = JSON.parse(localStorage.getItem("ja_session") || '{"id":null,"history":[]}');
+let lastResult = null;
+
+const $ = id => document.getElementById(id);
+const num = id => {
+  const v = $(id).value.trim();
+  return v === "" ? null : Number(v);
+};
+const rate = (n,c) => (n && c>0) ? `1/${(n/c).toFixed(1)}` : "—";
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+
+function syncMachineUI(){
+  document.querySelectorAll(".machine-btn").forEach(b=>b.classList.toggle("active",b.dataset.machine===machine));
+  $("otherWrap").classList.toggle("hidden",machine!=="other");
+  localStorage.setItem("ja_machine",machine);
+}
+document.querySelectorAll(".machine-btn").forEach(b=>b.addEventListener("click",()=>{
+  machine=b.dataset.machine; syncMachineUI();
+}));
+
+function logChoose(n,k){
+  if(k<0 || k>n) return -Infinity;
+  let s=0;
+  for(let i=1;i<=k;i++) s += Math.log((n-k+i)/i);
+  return s;
+}
+function binomLL(n,k,p){
+  if(n<=0 || k<0 || k>n || p<=0 || p>=1) return 0;
+  return logChoose(n,k)+k*Math.log(p)+(n-k)*Math.log(1-p);
+}
+function bonusLL(n,b,r,pb,pr){
+  const o=n-b-r;
+  if(n<=0 || o<0 || pb<=0 || pr<=0 || pb+pr>=1) return -Infinity;
+  return b*Math.log(pb)+r*Math.log(pr)+o*Math.log(1-pb-pr);
+}
+function softmax(logs){
+  const m=Math.max(...logs);
+  const ex=logs.map(x=>Math.exp(x-m));
+  const sum=ex.reduce((a,b)=>a+b,0);
+  return ex.map(x=>100*x/sum);
+}
+
+function gradeFor(score){
+  if(score>=80) return ["かなり高設定寄り","good"];
+  if(score>=65) return ["高設定寄り","good"];
+  if(score>=50) return ["やや高設定寄り","warn"];
+  if(score>=35) return ["判断保留","warn"];
+  return ["低設定寄り","bad"];
+}
+function material(label, value, refLow, refHigh, inverse=false){
+  if(!isFinite(value)) return {label,text:"データなし",cls:"muted"};
+  let pos;
+  if(inverse) pos=(refLow-value)/(refLow-refHigh);
+  else pos=(value-refLow)/(refHigh-refLow);
+  if(pos>=.72) return {label,text:"かなり強い",cls:"good"};
+  if(pos>=.52) return {label,text:"良好",cls:"good"};
+  if(pos>=.30) return {label,text:"中間",cls:"warn"};
+  return {label,text:"弱め",cls:"bad"};
+}
+
+function evaluate(){
+  const G=num("games"), B=num("big"), R=num("reg");
+  const SG=num("startGames"), SB=num("startBig"), SR=num("startReg"), GR=num("grapes");
+  if(G===null || B===null || R===null || G<=0 || B<0 || R<0 || B+R>G){
+    alert("総回転数・BIG・REGを正しく入力してください。"); return;
+  }
+  const seatG = SG!==null ? G-SG : null;
+  if(SG!==null && seatG<0){ alert("着席時Gは現在の総回転数以下にしてください。"); return; }
+
+  $("bigRate").textContent=rate(G,B);
+  $("regRate").textContent=rate(G,R);
+  $("bonusRate").textContent=rate(G,B+R);
+  $("grapeRate").textContent=(GR!==null && seatG>0 && GR>0)?rate(seatG,GR):"—";
+  $("resultCard").classList.remove("hidden");
+  $("copyCard").classList.remove("hidden");
+
+  if(machine==="other"){
+    $("scoreCard").classList.add("hidden");
+    $("fitCard").classList.add("hidden");
+    $("reasonCard").classList.add("hidden");
+    lastResult={G,B,R,SG,SB,SR,GR,seatG,machineName:$("otherName").value||"その他",fit:null};
+    saveHistory(lastResult);
+    return;
+  }
+
+  const m=machines[machine];
+  let logs=m.settings.map(st=>{
+    let ll=bonusLL(G,B,R,1/st.b,1/st.r);
+    if(GR!==null && seatG>0 && GR>=0 && GR<=seatG){
+      ll += 0.65*binomLL(seatG,GR,1/st.g);
+    }
+    return ll;
+  });
+  const fit=softmax(logs);
+  const meanSetting=fit.reduce((sum,p,i)=>sum+p*(i+1),0)/100;
+  const score=Math.round(clamp((meanSetting-1)/5*100,0,100));
+  const best=fit.indexOf(Math.max(...fit))+1;
+  const samplePct=Math.round(clamp(G/6000*100,0,100));
+  const [grade,gradeCls]=gradeFor(score);
+
+  $("score").textContent=score;
+  $("grade").textContent=grade; $("grade").className="grade "+gradeCls;
+  $("bestSetting").textContent="設定"+best;
+  $("sample").textContent=samplePct+"%";
+  $("scoreCard").classList.remove("hidden");
+
+  $("bars").innerHTML=fit.map((p,i)=>`
+    <div class="barrow">
+      <div>設定${i+1}</div>
+      <div class="track"><div class="fill" style="width:${p.toFixed(2)}%"></div></div>
+      <div class="right">${p.toFixed(1)}%</div>
+    </div>`).join("");
+  $("fitCard").classList.remove("hidden");
+
+  const bigDen=B>0?G/B:Infinity, regDen=R>0?G/R:Infinity;
+  const grapeDen=(GR!==null && seatG>0 && GR>0)?seatG/GR:Infinity;
+  const s1=m.settings[0], s6=m.settings[5];
+  const reasons=[
+    material("BIG",bigDen,s1.b,s6.b,true),
+    material("REG",regDen,s1.r,s6.r,true),
+    (isFinite(grapeDen)?material("ブドウ",grapeDen,s1.g,s6.g,true):{label:"ブドウ",text:"未評価",cls:"muted"}),
+    {label:"試行G数",text: G>=5000?"十分増えてきた":G>=3000?"中程度":G>=1500?"まだ少なめ":"かなり少ない",cls:G>=5000?"good":G>=3000?"warn":"bad"}
+  ];
+  $("reasons").innerHTML=reasons.map(x=>`<div class="reason"><span>${x.label}</span><strong class="${x.cls}">${x.text}</strong></div>`).join("");
+  $("reasonCard").classList.remove("hidden");
+
+  lastResult={G,B,R,SG,SB,SR,GR,seatG,machineName:m.name,fit,score,best,samplePct,reasons,bigDen,regDen,grapeDen};
+  saveHistory(lastResult);
+}
+
+function saveHistory(r){
+  if(!session.id) session.id=Date.now();
+  const item={
+    t:new Date().toLocaleTimeString("ja-JP",{hour:"2-digit",minute:"2-digit"}),
+    G:r.G,B:r.B,R:r.R,GR:r.GR,score:r.score??null,best:r.best??null
+  };
+  const prev=session.history[session.history.length-1];
+  if(!prev || prev.G!==item.G || prev.B!==item.B || prev.R!==item.R || prev.GR!==item.GR){
+    session.history.push(item);
+    if(session.history.length>50) session.history.shift();
+  }
+  localStorage.setItem("ja_session",JSON.stringify(session));
+  renderHistory();
+}
+function renderHistory(){
+  if(!session.history.length){ $("history").innerHTML="まだ評価履歴はありません。"; return; }
+  $("history").classList.remove("muted");
+  $("history").innerHTML=[...session.history].reverse().map(h=>`
+    <div class="histrow">
+      <div><strong>${h.G}G</strong>　B${h.B} / R${h.R}${h.GR!==null?" / ブドウ"+h.GR:""}</div>
+      <div>${h.score!==null?h.score+"点":""} <span class="muted">${h.t}</span></div>
+    </div>`).join("");
+}
+function shortText(){
+  if(!lastResult) return "";
+  return `${lastResult.G},${lastResult.B},${lastResult.R},${lastResult.GR??""}`;
+}
+function detailText(){
+  if(!lastResult) return "";
+  const r=lastResult;
+  let t=`【ジャグラー実戦データ】
+
+機種：${r.machineName}
+
+■現在
+総回転数：${r.G}G
+BIG：${r.B}回
+REG：${r.R}回
+BIG確率：${rate(r.G,r.B)}
+REG確率：${rate(r.G,r.R)}
+合算：${rate(r.G,r.B+r.R)}
+`;
+  if(r.SG!==null){
+    t+=`
+■着席時
+総回転数：${r.SG}G
+BIG：${r.SB??"未入力"}回
+REG：${r.SR??"未入力"}回
+
+■着席後
+ゲーム数：${r.seatG}G
+BIG：${r.SB!==null?r.B-r.SB:"算出不可"}回
+REG：${r.SR!==null?r.R-r.SR:"算出不可"}回
+ブドウ：${r.GR??"未入力"}回
+ブドウ確率：${r.GR!==null&&r.seatG>0?rate(r.seatG,r.GR):"算出不可"}
+`;
+  }
+  if(r.fit){
+    t+=`
+■ツールによる統計評価
+高設定寄り指数：${r.score}/100
+最も適合：設定${r.best}
+サンプル充足度：${r.samplePct}%
+
+設定別適合度
+${r.fit.map((p,i)=>`設定${i+1}：${p.toFixed(1)}%`).join("\n")}
+
+※上記は均等な事前条件で正規化した相対適合度で、設定を保証する確率ではありません。
+`;
+  }
+  t+=`
+■ChatGPTへの依頼
+生データを優先して独立に再評価してください。
+設定別の見方、強い材料・弱い材料、試行数による不確実性、前回からの変化を整理してください。
+ツール側の自動判定をそのまま前提にせず、必要なら判定ロジックの問題点も指摘してください。`;
+  return t;
+}
+async function copy(txt){
+  try{await navigator.clipboard.writeText(txt)}catch(e){
+    const ta=document.createElement("textarea"); ta.value=txt; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); ta.remove();
+  }
+  $("toast").classList.add("show"); setTimeout(()=>$("toast").classList.remove("show"),1200);
+}
+$("evaluate").addEventListener("click",evaluate);
+$("copyShort").addEventListener("click",()=>copy(shortText()));
+$("copyDetail").addEventListener("click",()=>copy(detailText()));
+$("newSession").addEventListener("click",()=>{
+  if(confirm("現在の実戦履歴をリセットして、新しい実戦を開始しますか？")){
+    session={id:Date.now(),history:[]}; localStorage.setItem("ja_session",JSON.stringify(session));
+    ["games","big","reg","grapes","startGames","startBig","startReg"].forEach(id=>$(id).value="");
+    ["resultCard","scoreCard","fitCard","reasonCard","copyCard"].forEach(id=>$(id).classList.add("hidden"));
+    lastResult=null; renderHistory();
+  }
+});
+syncMachineUI(); renderHistory();
+</script>
+</body>
+</html>
