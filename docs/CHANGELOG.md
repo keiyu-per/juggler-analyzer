@@ -54,10 +54,10 @@
 | CR-2026-001 | 2026-10-03 | Feature | Juggler Analyzer v0.1 初期実装 | Completed | `index.html` |
 | CR-2026-002 | 2026-10-03 | Docs | 基本設計書 v0.1をリポジトリ管理へ移行 | Completed | `docs/SPECIFICATION.md` |
 | CR-2026-003 | 2026-10-03 | Docs | 仕様駆動開発に変更管理台帳を追加 | Completed | `docs/CHANGELOG.md`, `docs/SPECIFICATION.md` |
-| CR-2026-004 | 2026-10-03 | Feature / Logic | 現行系ジャグラー全機種の設定別評価対応 | In Progress | `assets/js/machines.js`, `docs/DATA_SOURCES.md` |
-| CR-2026-005 | 2026-10-03 | Change | 単一HTMLから責務別ファイルへ分割 | In Progress | `index.html`, `assets/` |
-| CR-2026-006 | 2026-10-03 | Feature / UI/UX | 画面左固定ブドウカウンター | In Progress | `index.html`, `assets/css/app.css`, `assets/js/app.js` |
-| CR-2026-007 | 2026-10-03 | Feature | ChatGPT共有プロンプトの目的別テンプレート化 | In Progress | `assets/js/prompts.js`, `assets/js/app.js` |
+| CR-2026-004 | 2026-10-03 | Feature / Logic | 現行系ジャグラー全機種の設定別評価対応 | Implemented | `assets/js/machines.js`, `docs/DATA_SOURCES.md` |
+| CR-2026-005 | 2026-10-03 | Change | 単一HTMLから責務別ファイルへ分割 | Implemented | `index.html`, `assets/` |
+| CR-2026-006 | 2026-10-03 | Feature / UI/UX | 画面左固定ブドウカウンター | Implemented | `index.html`, `assets/css/app.css`, `assets/js/app.js` |
+| CR-2026-007 | 2026-10-03 | Feature | ChatGPT共有プロンプトの目的別テンプレート化 | Implemented | `assets/js/prompts.js`, `assets/js/app.js` |
 
 ## 7. 変更詳細
 
@@ -120,7 +120,7 @@
 ### CR-2026-004 — 現行系ジャグラー全機種の設定別評価対応
 - **日付:** 2026-10-03
 - **Type:** Feature / Logic
-- **Status:** In Progress
+- **Status:** Implemented
 - **要求・背景:** 「その他」選択時に設定評価が出ず、実戦中の利用範囲が狭い。
 - **目的:** 現行系ジャグラーを個別登録し、機種固有のBB/RB基準で設定別適合度を算出する。
 - **変更前:** マイジャグラーV、ゴーゴージャグラー3、アイムジャグラーEXのみ設定評価。
@@ -133,7 +133,7 @@
 ### CR-2026-005 — 単一HTMLから責務別ファイルへ分割
 - **日付:** 2026-10-03
 - **Type:** Change
-- **Status:** In Progress
+- **Status:** Implemented
 - **要求・背景:** 今後の改修で単一HTMLが肥大化し、機種データ・統計ロジック・UI修正が干渉する懸念。
 - **目的:** 保守性とテスト容易性を上げる。
 - **変更前:** CSS、機種データ、統計計算、UI、保存、プロンプトを `index.html` に集約。
@@ -144,7 +144,7 @@
 ### CR-2026-006 — 画面左固定ブドウカウンター
 - **日付:** 2026-10-03
 - **Type:** Feature / UI/UX
-- **Status:** In Progress
+- **Status:** Implemented
 - **要求・背景:** 実戦ではカチカチくんでブドウのみ数えており、別端末操作をなくしたい。
 - **目的:** アプリ自体をブドウカウンターとして使用可能にする。
 - **変更後:** 左側固定の「+1」ボタンと現在値を表示。訂正用「-1」も配置。入力欄と双方向同期。
@@ -153,10 +153,26 @@
 ### CR-2026-007 — ChatGPT共有プロンプトの目的別テンプレート化
 - **日付:** 2026-10-03
 - **Type:** Feature
-- **Status:** In Progress
+- **Status:** Implemented
 - **要求・背景:** 従来の汎用プロンプトではAI回答が長くなり、実戦中に確認しづらい。
 - **目的:** 実戦中に繰り返し発生する質問ごとに短い回答を得る。
 - **変更後:** 設定再評価、続行価値、やめ時、見切りライン、店舗・イベント込み信頼度、前回からの変化、着席価値を選択可能にする。
 - **追加:** 店舗・イベント・残り時間・投資等を入れられる「追加状況」欄。
 - **回答指定:** 結論先頭、原則8行程度、数値の冗長な再掲禁止。
 - **確認項目:** 各テンプレートのコピー内容、追加状況の反映、短縮コピーの維持。
+
+
+## 10. v0.2 実装検証メモ
+
+2026-10-03、CR-2026-004〜007の実装後に以下を確認した。
+
+- JavaScript 5モジュールの構文チェック：すべて正常
+- 登録機種数：現行系10機種＋その他
+- 設定別適合度：合計100%へ正規化されることを確認
+- マイジャグラーV：ブドウ補助評価が有効になることを確認
+- ウルトラミラクルジャグラー：ブドウをカウント・表示しつつ設定適合度には使用しないことを確認
+- その他：設定別適合度を生成しないことを確認
+- ChatGPT目的別テンプレート：短文指定・追加状況が反映されることを確認
+- app.jsから参照するDOM ID：index.html上に欠落なし
+
+CRステータスは、コード実装と静的・ロジック検証まで完了したため `Implemented` とする。GitHub Pages上のiPhone実機確認後に `Completed` へ変更する。
