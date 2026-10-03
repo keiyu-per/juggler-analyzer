@@ -45,7 +45,7 @@
 | BL-005 | 収支管理 | Medium | Candidate | Data / UI |
 | BL-006 | 履歴一覧・編集・削除 | Medium | Candidate | Data / UI |
 | BL-007 | CSVエクスポート | Medium | Candidate | Data |
-| BL-008 | 対応機種追加 | Medium | Candidate | Logic / Data |
+| BL-008 | 対応機種追加 | Medium | Promoted | Logic / Data |
 | BL-009 | 店舗・台番号管理 | Medium | Candidate | Data / UI |
 | BL-010 | 月次集計 | Medium | Candidate | Data / UI |
 | BL-011 | 複数台比較 | Low | Candidate | UI / Logic |
@@ -90,8 +90,10 @@
 - **依存:** BL-005/006のデータモデル確定後が望ましい。
 
 ### BL-008 — 対応機種追加
-- **目的:** ファンキー、ハッピー等へ対応範囲を広げる。
-- **CR化時の確認:** 機種別基準値の出典・精度、ブドウ等の扱い。
+- **Status:** Promoted
+- **関連CR:** CR-2026-004
+- **目的:** 現行系ジャグラーへ対応範囲を広げる。
+- **対応方針:** BB/RBは北電子公式、ブドウは出典品質を分離して扱う。
 
 ### BL-009 — 店舗・台番号管理
 - **目的:** 実戦記録を店舗・台単位で識別する。
