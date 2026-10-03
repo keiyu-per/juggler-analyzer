@@ -58,6 +58,7 @@
 | CR-2026-005 | 2026-10-03 | Change | 単一HTMLから責務別ファイルへ分割 | Implemented | `index.html`, `assets/` |
 | CR-2026-006 | 2026-10-03 | Feature / UI/UX | 画面左固定ブドウカウンター | Implemented | `index.html`, `assets/css/app.css`, `assets/js/app.js` |
 | CR-2026-007 | 2026-10-03 | Feature | ChatGPT共有プロンプトの目的別テンプレート化 | Implemented | `assets/js/prompts.js`, `assets/js/app.js` |
+| CR-2026-008 | 2026-10-03 | UI/UX | ブドウカウンターのサイズ・縦位置調整 | Implemented | `assets/css/app.css`, `docs/SPECIFICATION.md` |
 
 ## 7. 変更詳細
 
@@ -176,3 +177,16 @@
 - app.jsから参照するDOM ID：index.html上に欠落なし
 
 CRステータスは、コード実装と静的・ロジック検証まで完了したため `Implemented` とする。GitHub Pages上のiPhone実機確認後に `Completed` へ変更する。
+
+
+### CR-2026-008 — ブドウカウンターのサイズ・縦位置調整
+- **日付:** 2026-10-03
+- **Type:** UI/UX
+- **Status:** Implemented
+- **要求・背景:** 実機利用時、ブドウカウンターをもう少し押しやすくし、画面中央寄りへ配置したい。
+- **変更前:** 幅64px、画面下端基準の固定配置。
+- **変更後:** カウンター全体を約1.1倍へ拡大し、中心を画面上端から約60%（上:下 ≒ 6:4）の位置へ固定。
+- **影響範囲:** ブドウ固定カウンターの表示のみ。カウント・保存・設定推測ロジックへの影響なし。
+- **対象ファイル:** `assets/css/app.css`, `docs/SPECIFICATION.md`
+- **データ互換性:** 影響なし
+- **確認項目:** iPhone縦画面での押しやすさ、本文との重なり、スクロール時の固定位置。
