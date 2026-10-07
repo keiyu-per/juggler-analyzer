@@ -65,6 +65,7 @@
 | CR-2026-012 | 2026-10-07 | UI/UX | GOGOランプデザイン刷新・押下発光 | Implemented | `index.html`, `assets/css/app.css`, `assets/js/app.js`, `docs/SPECIFICATION.md` |
 | CR-2026-013 | 2026-10-07 | Fix / UI/UX | GOGOランプ文字の中央揃え補正 | Implemented | `index.html`, `assets/css/app.css`, `docs/SPECIFICATION.md` |
 | CR-2026-014 | 2026-10-07 | Fix / UI/UX | GOGOランプの縦位置補正 | Implemented | `index.html`, `assets/css/app.css`, `docs/SPECIFICATION.md` |
+| CR-2026-015 | 2026-10-07 | Feature / UI/UX | GOGO入力時のブドウ非表示・総回転数クリア | Implemented | `index.html`, `assets/js/app.js`, `docs/SPECIFICATION.md` |
 
 ## 7. 変更詳細
 
@@ -291,3 +292,19 @@ CRステータスは、コード実装と静的・ロジック検証まで完了
 - **キャッシュ対策:** CSS/JS読込バージョンを `20261007-4` へ更新。
 - **データ互換性:** 影響なし
 - **確認項目:** iPhone縦画面での縦中央バランス、GOGO!/CHANCEの見切れ、押下発光との整合。
+
+
+### CR-2026-015 — GOGO入力時のブドウ非表示・総回転数クリア
+- **日付:** 2026-10-07
+- **Type:** Feature / UI/UX
+- **Status:** Implemented
+- **要求・背景:** ペカリ時に総回転数を入力する際、固定ブドウカウンターが入力操作の邪魔にならず、既存の総回転数を手動削除せず入力を開始できるようにしたい。
+- **目的:** GOGO押下後の入力操作をさらに短縮する。
+- **変更前:** GOGO押下で総回転数欄へ移動・フォーカスするが、既存値は残り、固定ブドウカウンターも表示されたまま。
+- **変更後:** GOGO押下で固定ブドウカウンターを一時非表示にし、総回転数を空欄へクリアしてからフォーカスする。BIG/REGクイック入力完了時または閉じる操作でブドウカウンターを再表示する。
+- **保存:** 総回転数クリア時点でドラフトへ反映する。ブドウ累計値そのものは変更しない。
+- **影響範囲:** GOGO入力導線のみ。設定推測ロジック、ブドウ累計値、セッション履歴の既存データ構造への変更なし。
+- **対象ファイル:** `index.html`, `assets/js/app.js`, `docs/SPECIFICATION.md`
+- **キャッシュ対策:** CSS/JS読込バージョンを `20261007-5` へ更新。
+- **データ互換性:** 影響なし
+- **確認項目:** GOGO押下時のブドウ非表示、総回転数クリア、数字入力フォーカス、BIG/REG入力後のブドウ再表示、閉じる操作での再表示、ブドウ累計値保持。
