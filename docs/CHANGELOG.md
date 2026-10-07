@@ -61,6 +61,7 @@
 | CR-2026-008 | 2026-10-03 | UI/UX | ブドウカウンターのサイズ・縦位置調整 | Implemented | `assets/css/app.css`, `docs/SPECIFICATION.md` |
 | CR-2026-009 | 2026-10-07 | Feature / UI/UX | GOGOショートカットで総回転数入力へ移動 | Implemented | `index.html`, `assets/css/app.css`, `assets/js/app.js`, `docs/SPECIFICATION.md` |
 | CR-2026-010 | 2026-10-07 | Feature / UI/UX | GOGOクイック入力 v2（BIG/REG加算＋自動評価） | Implemented | `index.html`, `assets/css/app.css`, `assets/js/app.js`, `docs/SPECIFICATION.md` |
+| CR-2026-011 | 2026-10-07 | Fix / Infra | Safari・ホーム画面の静的アセットキャッシュ対策 | Implemented | `index.html` |
 
 ## 7. 変更詳細
 
@@ -227,3 +228,16 @@ CRステータスは、コード実装と静的・ロジック検証まで完了
 #### CR-2026-010 UI微調整（2026-10-07）
 - GOGO固定ボタンの配置を右上から左上へ変更。
 - 動作、保存形式、クイック入力ロジックへの変更なし。
+
+
+### CR-2026-011 — Safari・ホーム画面の静的アセットキャッシュ対策
+- **日付:** 2026-10-07
+- **Type:** Fix / Infra
+- **Status:** Implemented
+- **要求・背景:** mainとGitHub PagesではGOGOボタンが左上指定になっているにもかかわらず、iPhone側で旧CSSが残り右上表示が継続した。
+- **原因仮説:** Safari / ホーム画面Webアプリ側の静的CSS・JSキャッシュ。
+- **変更前:** `app.css` と `app.js` を固定URLで読み込み。
+- **変更後:** CSS/JSのURLにバージョンクエリを付与し、デプロイ後に新しいアセットを取得させる。
+- **影響範囲:** アセット読込のみ。LocalStorage、実戦データ、設定推測ロジックへの影響なし。
+- **対象ファイル:** `index.html`
+- **データ互換性:** 影響なし
