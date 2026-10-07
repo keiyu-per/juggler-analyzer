@@ -238,11 +238,37 @@ function initPromptTypes() {
   });
 }
 
-$("gogoShortcut").addEventListener("click", () => {
+function openGogoQuick() {
+  $("gogoQuick").classList.remove("hidden");
   const games = $("games");
   games.focus({ preventScroll: true });
   games.scrollIntoView({ behavior: "smooth", block: "center" });
-});
+}
+
+function closeGogoQuick() {
+  $("gogoQuick").classList.add("hidden");
+}
+
+function quickBonus(kind) {
+  const G = num("games");
+  if (G === null || G <= 0) {
+    alert("先に総回転数を入力してください。");
+    $("games").focus();
+    return;
+  }
+
+  const id = kind === "big" ? "big" : "reg";
+  const current = num(id) ?? 0;
+  $(id).value = String(current + 1);
+  persistDraft();
+  evaluate();
+  closeGogoQuick();
+}
+
+$("gogoShortcut").addEventListener("click", openGogoQuick);
+$("gogoQuickClose").addEventListener("click", closeGogoQuick);
+$("quickBig").addEventListener("click", () => quickBonus("big"));
+$("quickReg").addEventListener("click", () => quickBonus("reg"));
 
 $("evaluate").addEventListener("click", evaluate);
 $("copyShort").addEventListener("click", () => copy(shortText()));
@@ -291,7 +317,7 @@ $("newSession").addEventListener("click", () => {
   });
 
   [
-    "resultCard","scoreCard","fitCard","reasonCard","copyCard"
+    "resultCard","scoreCard","fitCard","reasonCard","copyCard","gogoQuick"
   ].forEach(id => {
     $(id).classList.add("hidden");
   });

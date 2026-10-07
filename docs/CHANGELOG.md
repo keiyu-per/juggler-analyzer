@@ -60,6 +60,7 @@
 | CR-2026-007 | 2026-10-03 | Feature | ChatGPT共有プロンプトの目的別テンプレート化 | Implemented | `assets/js/prompts.js`, `assets/js/app.js` |
 | CR-2026-008 | 2026-10-03 | UI/UX | ブドウカウンターのサイズ・縦位置調整 | Implemented | `assets/css/app.css`, `docs/SPECIFICATION.md` |
 | CR-2026-009 | 2026-10-07 | Feature / UI/UX | GOGOショートカットで総回転数入力へ移動 | Implemented | `index.html`, `assets/css/app.css`, `assets/js/app.js`, `docs/SPECIFICATION.md` |
+| CR-2026-010 | 2026-10-07 | Feature / UI/UX | GOGOクイック入力 v2（BIG/REG加算＋自動評価） | Implemented | `index.html`, `assets/css/app.css`, `assets/js/app.js`, `docs/SPECIFICATION.md` |
 
 ## 7. 変更詳細
 
@@ -206,3 +207,18 @@ CRステータスは、コード実装と静的・ロジック検証まで完了
 - **対象ファイル:** `index.html`, `assets/css/app.css`, `assets/js/app.js`, `docs/SPECIFICATION.md`
 - **データ互換性:** 影響なし
 - **確認項目:** iPhoneでの固定表示、タップ時の総回転数欄への移動、フォーカス・数字キーボード起動、既存ブドウカウンターとの干渉。
+
+
+### CR-2026-010 — GOGOクイック入力 v2
+- **日付:** 2026-10-07
+- **Type:** Feature / UI/UX
+- **Status:** Implemented
+- **要求・背景:** ペカリ後の入力を「総回転数入力 → BIG/REG更新 → 評価更新」まで短い導線で完結させたい。
+- **目的:** ペカリ発生時の実戦入力を最小操作で完了する。
+- **変更前:** GOGOボタンで総回転数欄へ移動・フォーカスするのみ。
+- **変更後:** GOGO押下で総回転数欄へ移動し、直下に「BIG +1」「REG +1」のクイック入力を表示。選択すると該当回数を加算し、自動で評価を更新する。
+- **入力保護:** 総回転数が未入力の場合はBIG/REGを加算せず、先に総回転数入力を促す。
+- **影響範囲:** 入力導線のみ。保存キー・設定推測ロジックへの変更なし。
+- **対象ファイル:** `index.html`, `assets/css/app.css`, `assets/js/app.js`, `docs/SPECIFICATION.md`
+- **データ互換性:** 影響なし
+- **確認項目:** GOGO→総回転数→BIG/REG+1→自動評価の一連動作、既存手入力との同期、再読込時データ保持。
