@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760">
+<defs>
+  <radialGradient id="blueGlow" cx="50%" cy="48%" r="58%">
+    <stop offset="0%" stop-color="#9ff8ff"/>
+    <stop offset="14%" stop-color="#39d7ff"/>
+    <stop offset="34%" stop-color="#0c7dff"/>
+    <stop offset="60%" stop-color="#1146d8"/>
+    <stop offset="100%" stop-color="#060d32"/>
+  </radialGradient>
+  <filter id="glowBlue" x="-80%" y="-80%" width="260%" height="260%">
+    <feGaussianBlur stdDeviation="12" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="glowPink" x="-80%" y="-80%" width="260%" height="260%">
+    <feGaussianBlur stdDeviation="8" result="p"/>
+    <feMerge><feMergeNode in="p"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="glowOrange" x="-80%" y="-80%" width="260%" height="260%">
+    <feGaussianBlur stdDeviation="7" result="o"/>
+    <feMerge><feMergeNode in="o"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+</defs>
+<rect width="1200" height="760" fill="#0b0f15"/>
+<text x="48" y="58" fill="#f4f7fb" font-size="32" font-family="sans-serif" font-weight="700">GOGOランプ 承認プレビュー</text>
+<text x="48" y="92" fill="#8f98a8" font-size="19" font-family="sans-serif">CR-2026-017 / 2026-10-07 / 採用基準：高彩度ネオン、パステル感を抑制</text>
+
+<g transform="translate(70 140)">
+  <rect x="0" y="0" width="460" height="360" rx="28" fill="#111720" stroke="#273241" stroke-width="2"/>
+  <text x="28" y="44" fill="#9aa4b5" font-size="20" font-family="sans-serif" font-weight="700">承認ランプ単体</text>
+  <g transform="translate(90 78)">
+    <polygon points="140,0 162,35 205,12 202,55 260,38 226,88 280,108 226,132 264,177 202,162 204,212 162,183 140,220 117,183 76,212 77,162 16,177 54,132 0,108 54,88 18,38 78,55 76,12 117,35"
+      fill="url(#blueGlow)" filter="url(#glowBlue)"/>
+    <g transform="translate(140 88) rotate(-8)" filter="url(#glowPink)">
+      <text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#ff4fe7" stroke="#ffd9fb" stroke-width="1.4"
+        font-size="56" font-family="sans-serif" font-style="italic" font-weight="900">GOGO!</text>
+    </g>
+    <g transform="translate(140 186)" filter="url(#glowOrange)">
+      <text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#ffcf4a" stroke="#ff6e14" stroke-width="1.4"
+        font-size="43" font-family="sans-serif" font-weight="900">CHANCE</text>
+    </g>
+  </g>
+</g>
+
+<g transform="translate(580 130)">
+  <rect x="0" y="0" width="550" height="540" rx="44" fill="#090d13" stroke="#394454" stroke-width="3"/>
+  <text x="44" y="58" fill="#f4f7fb" font-size="28" font-family="sans-serif" font-weight="800">アプリ表示イメージ</text>
+  <g transform="translate(32 54) scale(.55)">
+    <polygon points="140,0 162,35 205,12 202,55 260,38 226,88 280,108 226,132 264,177 202,162 204,212 162,183 140,220 117,183 76,212 77,162 16,177 54,132 0,108 54,88 18,38 78,55 76,12 117,35"
+      fill="url(#blueGlow)" filter="url(#glowBlue)"/>
+    <g transform="translate(140 90) rotate(-8)" filter="url(#glowPink)">
+      <text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#ff4fe7" stroke="#ffd9fb" stroke-width="1.4"
+        font-size="56" font-family="sans-serif" font-style="italic" font-weight="900">GOGO!</text>
+    </g>
+    <g transform="translate(140 187)" filter="url(#glowOrange)">
+      <text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#ffcf4a" stroke="#ff6e14" stroke-width="1.4"
+        font-size="43" font-family="sans-serif" font-weight="900">CHANCE</text>
+    </g>
+  </g>
+  <text x="195" y="105" fill="#f4f7fb" font-size="34" font-family="sans-serif" font-weight="900">JUGGLER ANALYZER</text>
+  <text x="195" y="138" fill="#8792a3" font-size="18" font-family="sans-serif">v0.2 — iPhone実戦用 / 端末内保存</text>
+
+  <rect x="35" y="182" width="480" height="320" rx="28" fill="#151a22" stroke="#2d3643" stroke-width="2"/>
+  <text x="64" y="224" fill="#f4f7fb" font-size="28" font-family="sans-serif" font-weight="800">機種</text>
+  <rect x="64" y="250" width="200" height="78" rx="22" fill="#153025" stroke="#63e892" stroke-width="4"/>
+  <rect x="286" y="250" width="200" height="78" rx="22" fill="#1d232d" stroke="#343e4d" stroke-width="2"/>
+  <text x="164" y="299" fill="#fff" text-anchor="middle" font-size="24" font-family="sans-serif" font-weight="800">マイVI</text>
+  <text x="386" y="299" fill="#fff" text-anchor="middle" font-size="24" font-family="sans-serif" font-weight="800">マイV</text>
+  <rect x="64" y="348" width="200" height="78" rx="22" fill="#1d232d" stroke="#343e4d" stroke-width="2"/>
+  <rect x="286" y="348" width="200" height="78" rx="22" fill="#1d232d" stroke="#343e4d" stroke-width="2"/>
+  <text x="164" y="397" fill="#fff" text-anchor="middle" font-size="22" font-family="sans-serif" font-weight="800">ネオアイム</text>
+  <text x="386" y="397" fill="#fff" text-anchor="middle" font-size="22" font-family="sans-serif" font-weight="800">アイムEX</text>
+</g>
+
+<g transform="translate(70 540)">
+  <text x="0" y="0" fill="#64e88e" font-size="24" font-family="sans-serif" font-weight="800">採用ポイント</text>
+  <text x="0" y="38" fill="#d8dee8" font-size="20" font-family="sans-serif">• 青の白飛びを抑え、シアン → 濃青のコントラストを強化</text>
+  <text x="0" y="72" fill="#d8dee8" font-size="20" font-family="sans-serif">• GOGO! はネオンピンクの芯色を残し、外周グローで発光</text>
+  <text x="0" y="106" fill="#d8dee8" font-size="20" font-family="sans-serif">• CHANCE は黄〜橙の芯色＋赤橙グロー</text>
+  <text x="0" y="140" fill="#d8dee8" font-size="20" font-family="sans-serif">• 承認済み位置：以前より少し左、さらに少し下</text>
+</g>
+</svg>
