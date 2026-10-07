@@ -68,63 +68,146 @@ footer{color:var(--muted);font-size:10px;line-height:1.55;margin-top:14px}
 
 .gogo-shortcut{
   position:fixed;
-  top:calc(12px + env(safe-area-inset-top));
-  left:max(10px,env(safe-area-inset-left));
+  top:calc(10px + env(safe-area-inset-top));
+  left:max(8px,env(safe-area-inset-left));
   z-index:25;
-  width:76px;
-  height:64px;
-  padding:4px 5px 5px;
-  border:1px solid rgba(255,255,255,.32);
+  width:92px;
+  height:82px;
+  padding:0;
+  border:0;
   border-radius:18px;
-  background:
-    radial-gradient(circle at 50% 42%,rgba(255,245,255,.96) 0 5%,rgba(255,124,255,.95) 15%,rgba(151,54,220,.96) 36%,rgba(29,12,48,.98) 68%),
-    #160b20;
+  background:transparent;
   color:#fff;
-  box-shadow:
-    0 0 7px rgba(255,96,255,.95),
-    0 0 18px rgba(176,67,255,.72),
-    inset 0 0 12px rgba(255,255,255,.28);
   text-align:center;
   line-height:1;
   touch-action:manipulation;
   user-select:none;
   -webkit-tap-highlight-color:transparent;
 }
-.gogo-shortcut:active{
-  transform:scale(.95);
-  filter:brightness(1.15);
-}
-.gogo-star{
+.gogo-shortcut-inner{
+  position:relative;
   display:block;
-  font-size:12px;
-  color:#fff36b;
-  text-shadow:0 0 6px #fff36b;
-  margin-bottom:1px;
+  width:100%;
+  height:100%;
+  filter:drop-shadow(0 0 5px rgba(38,125,255,.55));
+}
+.gogo-burst{
+  position:absolute;
+  left:50%;
+  top:45%;
+  width:78px;
+  height:58px;
+  transform:translate(-50%,-50%);
+  background:
+    radial-gradient(circle at 50% 46%,
+      #d7f7ff 0 5%,
+      #65dfff 14%,
+      #2d8dff 34%,
+      #2255d6 58%,
+      #17247d 78%,
+      #0c1238 100%);
+  clip-path:polygon(
+    50% 0%,59% 14%,73% 4%,73% 22%,92% 15%,82% 35%,
+    100% 45%,82% 56%,95% 72%,74% 69%,74% 94%,59% 82%,
+    50% 100%,41% 82%,26% 94%,26% 69%,5% 72%,18% 56%,
+    0% 45%,18% 35%,8% 15%,27% 22%,27% 4%,41% 14%
+  );
+  box-shadow:
+    0 0 8px rgba(88,214,255,.72),
+    0 0 18px rgba(41,127,255,.58);
+  transition:filter .12s ease, transform .12s ease, box-shadow .12s ease;
 }
 .gogo-main{
+  position:absolute;
+  left:50%;
+  top:29%;
+  transform:translate(-50%,-50%) rotate(-8deg);
   display:block;
-  font-size:19px;
+  z-index:2;
+  font-size:22px;
   font-weight:1000;
   font-style:italic;
-  letter-spacing:-.04em;
-  text-shadow:0 0 5px #fff,0 0 9px #ff63f5;
+  letter-spacing:-.06em;
+  white-space:nowrap;
+  color:#ff7ee8;
+  -webkit-text-stroke:.6px rgba(255,255,255,.9);
+  text-shadow:
+    0 0 2px #fff,
+    0 0 7px #ff6fe5,
+    0 0 12px rgba(255,56,220,.82);
 }
 .gogo-chance{
+  position:absolute;
+  left:50%;
+  bottom:8px;
+  transform:translateX(-50%);
   display:block;
-  margin-top:2px;
-  font-size:8px;
-  font-weight:900;
-  letter-spacing:.16em;
-  color:#ffe96b;
-  text-shadow:0 0 5px rgba(255,233,107,.85);
+  z-index:2;
+  font-size:18px;
+  font-weight:1000;
+  letter-spacing:.02em;
+  color:#fff178;
+  -webkit-text-stroke:.5px rgba(255,94,47,.78);
+  text-shadow:
+    0 0 3px #fff4a8,
+    0 0 8px #ffb72e,
+    0 0 12px rgba(255,92,25,.68);
+}
+.gogo-shortcut:active{
+  transform:scale(.96);
+}
+.gogo-shortcut.is-flashing .gogo-burst{
+  animation:gogoLampFlash .36s ease-out 1;
+}
+.gogo-shortcut.is-flashing .gogo-main{
+  animation:gogoTextFlash .36s ease-out 1;
+}
+.gogo-shortcut.is-flashing .gogo-chance{
+  animation:gogoChanceFlash .36s ease-out 1;
+}
+@keyframes gogoLampFlash{
+  0%{
+    filter:brightness(1);
+    transform:translate(-50%,-50%) scale(1);
+    box-shadow:0 0 8px rgba(88,214,255,.72),0 0 18px rgba(41,127,255,.58);
+  }
+  35%{
+    filter:brightness(1.75) saturate(1.25);
+    transform:translate(-50%,-50%) scale(1.10);
+    box-shadow:
+      0 0 12px rgba(199,250,255,1),
+      0 0 26px rgba(69,184,255,.98),
+      0 0 42px rgba(45,95,255,.88);
+  }
+  100%{
+    filter:brightness(1);
+    transform:translate(-50%,-50%) scale(1);
+    box-shadow:0 0 8px rgba(88,214,255,.72),0 0 18px rgba(41,127,255,.58);
+  }
+}
+@keyframes gogoTextFlash{
+  0%,100%{filter:brightness(1)}
+  35%{
+    filter:brightness(1.55);
+    text-shadow:0 0 4px #fff,0 0 11px #ff92ef,0 0 22px #ff35da;
+  }
+}
+@keyframes gogoChanceFlash{
+  0%,100%{filter:brightness(1)}
+  35%{
+    filter:brightness(1.6);
+    text-shadow:0 0 4px #fffbd0,0 0 11px #ffd94d,0 0 20px #ff8b18;
+  }
 }
 @media(max-width:380px){
   .gogo-shortcut{
-    width:70px;
-    height:59px;
-    left:max(7px,env(safe-area-inset-left));
+    width:84px;
+    height:76px;
+    left:max(6px,env(safe-area-inset-left));
   }
-  .gogo-main{font-size:17px}
+  .gogo-burst{width:72px;height:54px}
+  .gogo-main{font-size:20px}
+  .gogo-chance{font-size:16px;bottom:7px}
 }
 
 
