@@ -68,6 +68,7 @@
 | CR-2026-015 | 2026-10-07 | Feature / UI/UX | GOGO入力時のブドウ非表示・総回転数クリア | Implemented | `index.html`, `assets/js/app.js`, `docs/SPECIFICATION.md` |
 | CR-2026-016 | 2026-10-07 | Fix / UI/UX | GOGO!文字を青いギザギザ基準で中央補正 | Implemented | `index.html`, `assets/css/app.css`, `docs/SPECIFICATION.md` |
 | CR-2026-017 | 2026-10-07 | UI/UX | GOGOランプのネオン質感調整＋承認プレビュー保存 | Implemented | `index.html`, `assets/css/app.css`, `docs/SPECIFICATION.md`, `docs/CHANGELOG.md`, `docs/review/gogo_neon_preview_20261007.svg` |
+| CR-2026-018 | 2026-10-07 | Feature / Docs | 共有用の使い方・レビューガイドを追加 | Implemented | `guide/index.html`, `index.html`, `docs/SPECIFICATION.md`, `docs/CHANGELOG.md` |
 
 ## 7. 変更詳細
 
@@ -341,3 +342,18 @@ CRステータスは、コード実装と静的・ロジック検証まで完了
 - **キャッシュ対策:** CSS/JS読込バージョンを `20261007-7` へ更新。
 - **データ互換性:** 影響なし
 - **確認項目:** パステル感の低減、青〜濃青のコントラスト、GOGO!/CHANCEの芯色、押下時の強発光、承認プレビューとの位置・色の整合。
+
+
+### CR-2026-018 — 共有用の使い方・レビューガイドを追加
+- **日付:** 2026-10-07
+- **Type:** Feature / Docs
+- **Status:** Implemented
+- **要求・背景:** 友人へ公開URLを共有してレビューしてもらう際、操作方法と評価の読み方を同時に渡せるページが必要。
+- **目的:** 初見ユーザーでもアプリを試し、具体的なUI/UXレビューを返せるようにする。
+- **変更前:** アプリ本体のみ公開され、操作説明は会話内に分散していた。
+- **変更後:** `guide/index.html` を追加し、基本操作・GOGO入力・ブドウ・評価の読み方・ChatGPT共有・保存仕様・レビュー観点を説明する。本体フッターからガイドへリンクする。
+- **公開URL:** `https://keiyu-per.github.io/juggler-analyzer/guide/`
+- **影響範囲:** ドキュメント・ナビゲーションのみ。設定推測、入力、LocalStorageへの影響なし。
+- **対象ファイル:** `guide/index.html`, `index.html`, `docs/SPECIFICATION.md`, `docs/CHANGELOG.md`
+- **データ互換性:** 影響なし
+- **確認項目:** iPhone表示、アプリへの戻りリンク、説明と現行仕様の整合、共有URLから直接アクセス可能であること。

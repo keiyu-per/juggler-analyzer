@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f1115">
+<title>JUGGLER ANALYZER 使い方</title>
+<style>
+:root{
+  --bg:#0f1115;--card:#171a21;--line:#2b313c;--text:#f5f7fb;
+  --muted:#9aa3b2;--accent:#69e38f;--blue:#67b8ff;--warn:#ffd166;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+main{max-width:720px;margin:auto;padding:22px 16px 50px}
+.hero{padding:16px 0 8px}
+h1{margin:0;font-size:28px;letter-spacing:.02em}
+.lead{color:var(--muted);line-height:1.65;margin:8px 0 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:17px;margin:14px 0}
+h2{font-size:18px;margin:0 0 12px}
+h3{font-size:15px;margin:18px 0 8px}
+p,li{line-height:1.65}
+ol,ul{padding-left:22px}
+.badge{display:inline-block;padding:5px 9px;border-radius:999px;background:#14251a;color:var(--accent);font-size:12px;font-weight:800;margin-bottom:8px}
+.action{display:block;text-align:center;text-decoration:none;background:var(--accent);color:#07150b;font-weight:900;padding:14px;border-radius:14px;margin:16px 0}
+.subaction{display:block;text-align:center;text-decoration:none;background:#252b35;color:var(--text);border:1px solid var(--line);font-weight:800;padding:13px;border-radius:14px;margin:10px 0}
+.flow{display:grid;grid-template-columns:1fr;gap:9px}
+.step{background:#11151c;border:1px solid var(--line);border-radius:14px;padding:13px}
+.step strong{color:var(--accent)}
+.note{border-left:3px solid var(--warn);padding:8px 12px;background:#1e1b13;border-radius:0 12px 12px 0;color:#e8dfc4}
+.kv{display:grid;grid-template-columns:120px 1fr;gap:8px 12px}
+.kv div{padding:5px 0;border-bottom:1px solid #242a33}
+.kv .k{color:var(--muted)}
+.review{background:#101a14;border:1px solid #285537}
+footer{color:var(--muted);font-size:11px;line-height:1.6;margin-top:22px}
+code{background:#101319;padding:2px 5px;border-radius:6px}
+@media(max-width:420px){h1{font-size:24px}.kv{grid-template-columns:1fr}.kv .k{padding-bottom:0}.kv div:not(.k){padding-top:0}}
+</style>
+</head>
+<body>
+<main>
+  <section class="hero">
+    <div class="badge">JUGGLER ANALYZER v0.2</div>
+    <h1>使い方・レビューガイド</h1>
+    <p class="lead">ジャグラー実戦中に、総回転数・BIG・REG・任意のブドウ数を入力して、設定別の統計的な適合度を確認するiPhone向けツールです。</p>
+  </section>
+
+  <a class="action" href="../">アプリを開く</a>
+
+  <section class="card">
+    <h2>最短の使い方</h2>
+    <div class="flow">
+      <div class="step"><strong>1.</strong> 機種を選ぶ</div>
+      <div class="step"><strong>2.</strong> 現在の総回転数・BIG・REGを入力</div>
+      <div class="step"><strong>3.</strong> 必要なら着席時データとブドウを入力</div>
+      <div class="step"><strong>4.</strong> 「評価を更新」を押す</div>
+      <div class="step"><strong>5.</strong> 設定別適合度・評価材料・ChatGPT共有を確認</div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>ペカったときの入力</h2>
+    <p>左上のネオン風 <strong>GOGO!</strong> ボタンがクイック入力です。</p>
+    <ol>
+      <li>GOGO!を押す</li>
+      <li>ブドウカウンターが一時的に隠れる</li>
+      <li>総回転数がクリアされ、入力欄へカーソルが移動する</li>
+      <li>現在の総回転数を入力する</li>
+      <li><strong>BIG +1</strong> または <strong>REG +1</strong> を押す</li>
+      <li>回数を加算して自動で再評価する</li>
+    </ol>
+    <p class="note">GOGO!を押しただけではBIG/REGは増えません。総回転数を入れてから当選種別を選びます。</p>
+  </section>
+
+  <section class="card">
+    <h2>ブドウカウンター</h2>
+    <p>画面左側の固定ボタンで、ブドウを <strong>+1</strong> / <strong>-1</strong> できます。入力欄の「着席後 累計ブドウ」と同期します。</p>
+    <p>ブドウを設定評価へ使うのは、十分な設定別参考データを採用している機種だけです。それ以外の機種では、数えることはできますが「参考表示のみ」になります。</p>
+  </section>
+
+  <section class="card">
+    <h2>評価の読み方</h2>
+    <div class="kv">
+      <div class="k">BIG / REG / 合算</div><div>現在の実測確率。表示は <code>1/xxx.x</code>。</div>
+      <div class="k">設定別適合度</div><div>入力データが各設定の基準値にどれだけ整合するかを相対表示したもの。</div>
+      <div class="k">高設定寄り指数</div><div>設定別適合度から作った0〜100の相対指標。</div>
+      <div class="k">評価材料</div><div>BIG・REG・ブドウ・試行G数を個別に確認する欄。</div>
+      <div class="k">サンプル充足度</div><div>総回転数がどれくらい積み上がっているかの簡易目安。</div>
+    </div>
+    <p class="note"><strong>設定別適合度は「設定確率」ではありません。</strong> 店舗の設定配分などの事前情報は、現在の自動判定には入っていません。</p>
+  </section>
+
+  <section class="card">
+    <h2>「BIG 弱め」などの意味</h2>
+    <p>評価材料の「弱め」「良好」は、<strong>その項目単体</strong>の評価です。</p>
+    <p>たとえばBIGが「弱め」でも、REGが強く、設定別適合度では中間〜高設定側に寄ることがあります。1行だけで台全体を判断せず、設定別適合度と他の材料を合わせて見てください。</p>
+  </section>
+
+  <section class="card">
+    <h2>ChatGPTへ共有</h2>
+    <p>「確認したいこと」から目的を選びます。</p>
+    <ul>
+      <li>設定再評価</li>
+      <li>続行価値</li>
+      <li>やめ時</li>
+      <li>見切りライン</li>
+      <li>店舗・イベント込み信頼度</li>
+      <li>前回からの変化</li>
+      <li>着席価値</li>
+    </ul>
+    <p>「追加状況」には、イベント日・投資額・残り時間・周辺台などを任意で入力できます。「選択テンプレでコピー」を押してChatGPTへ貼り付けます。</p>
+  </section>
+
+  <section class="card">
+    <h2>データ保存</h2>
+    <p>入力途中の値や実戦履歴は、その端末・ブラウザのLocalStorageへ保存されます。通常のデプロイやページ再読み込みでは消えません。</p>
+    <p>「新しい実戦を開始」を押すと、現在の実戦入力・履歴をリセットします。</p>
+  </section>
+
+  <section class="card review">
+    <h2>友人レビューで見てほしい点</h2>
+    <ul>
+      <li>実戦中に入力しやすいか</li>
+      <li>GOGO! → 回転数 → BIG/REG の流れが直感的か</li>
+      <li>評価結果の意味が誤解しにくいか</li>
+      <li>固定ブドウカウンターが邪魔にならないか</li>
+      <li>文字サイズ・ボタンサイズ・スクロール量は適切か</li>
+      <li>使っていて「ここを1タップ減らしたい」という箇所があるか</li>
+    </ul>
+  </section>
+
+  <a class="subaction" href="../">JUGGLER ANALYZERへ戻る</a>
+
+  <footer>
+    本ツールの判定は統計的な参考情報です。勝率・収支・設定を保証するものではありません。
+  </footer>
+</main>
+</body>
+</html>
