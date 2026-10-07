@@ -239,14 +239,20 @@ function initPromptTypes() {
 }
 
 function openGogoQuick() {
+  $("grapeFloat").classList.add("hidden");
   $("gogoQuick").classList.remove("hidden");
+
   const games = $("games");
+  games.value = "";
+  persistDraft();
+
   games.focus({ preventScroll: true });
   games.scrollIntoView({ behavior: "smooth", block: "center" });
 }
 
 function closeGogoQuick() {
   $("gogoQuick").classList.add("hidden");
+  $("grapeFloat").classList.remove("hidden");
 }
 
 function quickBonus(kind) {
@@ -330,6 +336,7 @@ $("newSession").addEventListener("click", () => {
   });
 
   lastResult = null;
+  $("grapeFloat").classList.remove("hidden");
   syncGrapeFloat();
   renderHistory();
 });
