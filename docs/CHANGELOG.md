@@ -62,6 +62,7 @@
 | CR-2026-009 | 2026-10-07 | Feature / UI/UX | GOGOショートカットで総回転数入力へ移動 | Implemented | `index.html`, `assets/css/app.css`, `assets/js/app.js`, `docs/SPECIFICATION.md` |
 | CR-2026-010 | 2026-10-07 | Feature / UI/UX | GOGOクイック入力 v2（BIG/REG加算＋自動評価） | Implemented | `index.html`, `assets/css/app.css`, `assets/js/app.js`, `docs/SPECIFICATION.md` |
 | CR-2026-011 | 2026-10-07 | Fix / Infra | Safari・ホーム画面の静的アセットキャッシュ対策 | Implemented | `index.html` |
+| CR-2026-012 | 2026-10-07 | UI/UX | GOGOランプデザイン刷新・押下発光 | Implemented | `index.html`, `assets/css/app.css`, `assets/js/app.js`, `docs/SPECIFICATION.md` |
 
 ## 7. 変更詳細
 
@@ -241,3 +242,20 @@ CRステータスは、コード実装と静的・ロジック検証まで完了
 - **影響範囲:** アセット読込のみ。LocalStorage、実戦データ、設定推測ロジックへの影響なし。
 - **対象ファイル:** `index.html`
 - **データ互換性:** 影響なし
+
+
+### CR-2026-012 — GOGOランプデザイン刷新・押下発光
+- **日付:** 2026-10-07
+- **Type:** UI/UX
+- **Status:** Implemented
+- **要求・背景:** GOGOショートカットを、実機のペカリを想起しやすい見た目にし、押下時にも発光フィードバックを出したい。
+- **目的:** 実戦中にGOGO入力導線を直感的に認識でき、タップ操作の反応も視覚的に分かるようにする。
+- **変更前:** 紫〜ピンク系の角丸カード状GOGOボタン。押下時は単純な縮小・明度変化のみ。
+- **変更後:** 青い放射状ランプ背景、ピンク系GOGO!、黄〜橙系CHANCEの構成へ刷新。押下時に約0.36秒の強発光アニメーションを実行する。
+- **配置:** 左上固定を維持。
+- **動作:** 押下発光と同時に総回転数欄へ移動し、GOGOクイック入力を開く。
+- **影響範囲:** 表示・操作フィードバックのみ。設定推測ロジック、LocalStorage形式への変更なし。
+- **対象ファイル:** `index.html`, `assets/css/app.css`, `assets/js/app.js`, `docs/SPECIFICATION.md`
+- **キャッシュ対策:** `app.css` / `app.js` のアセットバージョンを `20261007-2` へ更新。
+- **データ互換性:** 影響なし
+- **確認項目:** 左上配置、放射状背景、文字色、押下発光、GOGOクイック入力起動、既存データ保持。
