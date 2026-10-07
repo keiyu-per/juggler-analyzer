@@ -265,7 +265,14 @@ function quickBonus(kind) {
   closeGogoQuick();
 }
 
-$("gogoShortcut").addEventListener("click", openGogoQuick);
+$("gogoShortcut").addEventListener("click", () => {
+  const btn = $("gogoShortcut");
+  btn.classList.remove("is-flashing");
+  void btn.offsetWidth;
+  btn.classList.add("is-flashing");
+  setTimeout(() => btn.classList.remove("is-flashing"), 380);
+  openGogoQuick();
+});
 $("gogoQuickClose").addEventListener("click", closeGogoQuick);
 $("quickBig").addEventListener("click", () => quickBonus("big"));
 $("quickReg").addEventListener("click", () => quickBonus("reg"));
