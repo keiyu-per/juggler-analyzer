@@ -66,6 +66,7 @@
 | CR-2026-013 | 2026-10-07 | Fix / UI/UX | GOGOランプ文字の中央揃え補正 | Implemented | `index.html`, `assets/css/app.css`, `docs/SPECIFICATION.md` |
 | CR-2026-014 | 2026-10-07 | Fix / UI/UX | GOGOランプの縦位置補正 | Implemented | `index.html`, `assets/css/app.css`, `docs/SPECIFICATION.md` |
 | CR-2026-015 | 2026-10-07 | Feature / UI/UX | GOGO入力時のブドウ非表示・総回転数クリア | Implemented | `index.html`, `assets/js/app.js`, `docs/SPECIFICATION.md` |
+| CR-2026-016 | 2026-10-07 | Fix / UI/UX | GOGO!文字を青いギザギザ基準で中央補正 | Implemented | `index.html`, `assets/css/app.css`, `docs/SPECIFICATION.md` |
 
 ## 7. 変更詳細
 
@@ -308,3 +309,18 @@ CRステータスは、コード実装と静的・ロジック検証まで完了
 - **キャッシュ対策:** CSS/JS読込バージョンを `20261007-5` へ更新。
 - **データ互換性:** 影響なし
 - **確認項目:** GOGO押下時のブドウ非表示、総回転数クリア、数字入力フォーカス、BIG/REG入力後のブドウ再表示、閉じる操作での再表示、ブドウ累計値保持。
+
+
+### CR-2026-016 — GOGO!文字を青いギザギザ基準で中央補正
+- **日付:** 2026-10-07
+- **Type:** Fix / UI/UX
+- **Status:** Implemented
+- **要求・背景:** iPhone実機表示でGOGO!文字が青い放射状ランプ（ギザギザ）の中央から外れて見える。
+- **原因:** GOGO!をボタン全幅92px基準で中央配置していた一方、青いランプ自体は78px幅で、斜体・-8°回転による視覚的な左寄りも発生していた。
+- **変更前:** GOGO!はボタン全幅100%を基準に中央揃え。
+- **変更後:** GOGO!の配置幅を青いランプと同じ78pxへ変更し、ランプ中心を基準に配置。視覚補正として中心から約2px右、縦位置を33%から35%へ微調整する。小画面時はランプ幅に合わせ72pxとする。
+- **影響範囲:** GOGO!文字の位置のみ。CHANCE、入力、評価、保存ロジックへの影響なし。
+- **対象ファイル:** `index.html`, `assets/css/app.css`, `docs/SPECIFICATION.md`
+- **キャッシュ対策:** CSS/JS読込バージョンを `20261007-6` へ更新。
+- **データ互換性:** 影響なし
+- **確認項目:** GOGO!が青いギザギザの視覚中心に見えること、iPhone縦画面、小画面時、押下発光時の位置維持。
