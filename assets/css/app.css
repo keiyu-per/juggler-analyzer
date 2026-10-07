@@ -65,3 +65,64 @@ footer{color:var(--muted);font-size:10px;line-height:1.55;margin-top:14px}
   .grape-minus{height:31px}
   .machine-btn{font-size:12px;padding:10px 5px}
 }
+
+.gogo-shortcut{
+  position:fixed;
+  top:calc(12px + env(safe-area-inset-top));
+  right:max(10px,env(safe-area-inset-right));
+  z-index:25;
+  width:76px;
+  height:64px;
+  padding:4px 5px 5px;
+  border:1px solid rgba(255,255,255,.32);
+  border-radius:18px;
+  background:
+    radial-gradient(circle at 50% 42%,rgba(255,245,255,.96) 0 5%,rgba(255,124,255,.95) 15%,rgba(151,54,220,.96) 36%,rgba(29,12,48,.98) 68%),
+    #160b20;
+  color:#fff;
+  box-shadow:
+    0 0 7px rgba(255,96,255,.95),
+    0 0 18px rgba(176,67,255,.72),
+    inset 0 0 12px rgba(255,255,255,.28);
+  text-align:center;
+  line-height:1;
+  touch-action:manipulation;
+  user-select:none;
+  -webkit-tap-highlight-color:transparent;
+}
+.gogo-shortcut:active{
+  transform:scale(.95);
+  filter:brightness(1.15);
+}
+.gogo-star{
+  display:block;
+  font-size:12px;
+  color:#fff36b;
+  text-shadow:0 0 6px #fff36b;
+  margin-bottom:1px;
+}
+.gogo-main{
+  display:block;
+  font-size:19px;
+  font-weight:1000;
+  font-style:italic;
+  letter-spacing:-.04em;
+  text-shadow:0 0 5px #fff,0 0 9px #ff63f5;
+}
+.gogo-chance{
+  display:block;
+  margin-top:2px;
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.16em;
+  color:#ffe96b;
+  text-shadow:0 0 5px rgba(255,233,107,.85);
+}
+@media(max-width:380px){
+  .gogo-shortcut{
+    width:70px;
+    height:59px;
+    right:max(7px,env(safe-area-inset-right));
+  }
+  .gogo-main{font-size:17px}
+}

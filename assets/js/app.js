@@ -238,6 +238,12 @@ function initPromptTypes() {
   });
 }
 
+$("gogoShortcut").addEventListener("click", () => {
+  const games = $("games");
+  games.focus({ preventScroll: true });
+  games.scrollIntoView({ behavior: "smooth", block: "center" });
+});
+
 $("evaluate").addEventListener("click", evaluate);
 $("copyShort").addEventListener("click", () => copy(shortText()));
 
