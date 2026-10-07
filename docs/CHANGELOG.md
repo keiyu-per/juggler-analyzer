@@ -64,6 +64,7 @@
 | CR-2026-011 | 2026-10-07 | Fix / Infra | Safari・ホーム画面の静的アセットキャッシュ対策 | Implemented | `index.html` |
 | CR-2026-012 | 2026-10-07 | UI/UX | GOGOランプデザイン刷新・押下発光 | Implemented | `index.html`, `assets/css/app.css`, `assets/js/app.js`, `docs/SPECIFICATION.md` |
 | CR-2026-013 | 2026-10-07 | Fix / UI/UX | GOGOランプ文字の中央揃え補正 | Implemented | `index.html`, `assets/css/app.css`, `docs/SPECIFICATION.md` |
+| CR-2026-014 | 2026-10-07 | Fix / UI/UX | GOGOランプの縦位置補正 | Implemented | `index.html`, `assets/css/app.css`, `docs/SPECIFICATION.md` |
 
 ## 7. 変更詳細
 
@@ -275,3 +276,18 @@ CRステータスは、コード実装と静的・ロジック検証まで完了
 - **キャッシュ対策:** CSS/JS読込バージョンを `20261007-3` へ更新。
 - **データ互換性:** 影響なし
 - **確認項目:** GOGO!/CHANCEの水平中央、回転時の見た目、iPhone縦画面、小画面メディアクエリ。
+
+
+### CR-2026-014 — GOGOランプの縦位置補正
+- **日付:** 2026-10-07
+- **Type:** Fix / UI/UX
+- **Status:** Implemented
+- **要求・背景:** iPhone実機表示でGOGOランプ全体が縦方向に上寄りに見える。
+- **目的:** 青い発光、GOGO!、CHANCEの視覚中心をボタン中央へ寄せる。
+- **変更前:** 発光中心45%、GOGO! 29%、CHANCE bottom 8px。
+- **変更後:** 発光中心48%、GOGO! 33%、CHANCE bottom 4pxへ調整。小画面時もCHANCEをbottom 3pxへ調整。
+- **影響範囲:** GOGOランプの縦配置のみ。入力・評価・保存ロジックへの影響なし。
+- **対象ファイル:** `index.html`, `assets/css/app.css`, `docs/SPECIFICATION.md`
+- **キャッシュ対策:** CSS/JS読込バージョンを `20261007-4` へ更新。
+- **データ互換性:** 影響なし
+- **確認項目:** iPhone縦画面での縦中央バランス、GOGO!/CHANCEの見切れ、押下発光との整合。
