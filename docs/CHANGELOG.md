@@ -67,6 +67,7 @@
 | CR-2026-014 | 2026-10-07 | Fix / UI/UX | GOGOランプの縦位置補正 | Implemented | `index.html`, `assets/css/app.css`, `docs/SPECIFICATION.md` |
 | CR-2026-015 | 2026-10-07 | Feature / UI/UX | GOGO入力時のブドウ非表示・総回転数クリア | Implemented | `index.html`, `assets/js/app.js`, `docs/SPECIFICATION.md` |
 | CR-2026-016 | 2026-10-07 | Fix / UI/UX | GOGO!文字を青いギザギザ基準で中央補正 | Implemented | `index.html`, `assets/css/app.css`, `docs/SPECIFICATION.md` |
+| CR-2026-017 | 2026-10-07 | UI/UX | GOGOランプのネオン質感調整＋承認プレビュー保存 | Implemented | `index.html`, `assets/css/app.css`, `docs/SPECIFICATION.md`, `docs/CHANGELOG.md`, `docs/review/gogo_neon_preview_20261007.svg` |
 
 ## 7. 変更詳細
 
@@ -324,3 +325,19 @@ CRステータスは、コード実装と静的・ロジック検証まで完了
 - **キャッシュ対策:** CSS/JS読込バージョンを `20261007-6` へ更新。
 - **データ互換性:** 影響なし
 - **確認項目:** GOGO!が青いギザギザの視覚中心に見えること、iPhone縦画面、小画面時、押下発光時の位置維持。
+
+
+### CR-2026-017 — GOGOランプのネオン質感調整＋承認プレビュー保存
+- **日付:** 2026-10-07
+- **Type:** UI/UX
+- **Status:** Implemented
+- **要求・背景:** 実装中のGOGOランプが比較プレビューよりパステル調に見え、ネオン感が弱かった。
+- **目的:** 承認済みプレビューに合わせ、彩度・コントラスト・発光の芯を明確にしたネオン質感へ寄せる。
+- **変更前:** 青発光の中心白領域が広く、GOGO!/CHANCEも白寄りの発色で全体が淡く見える。
+- **変更後:** 青発光の白領域を縮小し、シアン〜濃青のコントラストを強化。GOGO!はネオンピンク、CHANCEは黄〜橙の芯色を維持し、外周グローで発光を表現する。承認プレビューの位置感に合わせGOGO!を2px相当左へ戻し、縦位置もさらに下げて調整する。
+- **影響範囲:** GOGOランプの見た目のみ。入力導線、評価、LocalStorage形式への影響なし。
+- **対象ファイル:** `index.html`, `assets/css/app.css`, `docs/SPECIFICATION.md`, `docs/CHANGELOG.md`, `docs/review/gogo_neon_preview_20261007.svg`
+- **関連資料:** `docs/review/gogo_neon_preview_20261007.svg`（会話内で承認された最終プレビューのリポジトリ保存版）
+- **キャッシュ対策:** CSS/JS読込バージョンを `20261007-7` へ更新。
+- **データ互換性:** 影響なし
+- **確認項目:** パステル感の低減、青〜濃青のコントラスト、GOGO!/CHANCEの芯色、押下時の強発光、承認プレビューとの位置・色の整合。
