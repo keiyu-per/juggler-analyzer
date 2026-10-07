@@ -119,14 +119,13 @@ footer{color:var(--muted);font-size:10px;line-height:1.55;margin-top:14px}
 }
 .gogo-main{
   position:absolute;
-  left:0;
-  right:0;
-  top:33%;
-  transform:translateY(-50%) rotate(-8deg);
+  left:calc(50% + 2px);
+  top:35%;
+  transform:translate(-50%,-50%) rotate(-8deg);
   transform-origin:center;
   display:block;
   z-index:2;
-  width:100%;
+  width:78px;
   text-align:center;
   font-size:22px;
   font-weight:1000;
@@ -212,7 +211,7 @@ footer{color:var(--muted);font-size:10px;line-height:1.55;margin-top:14px}
     left:max(6px,env(safe-area-inset-left));
   }
   .gogo-burst{width:72px;height:54px}
-  .gogo-main{font-size:20px}
+  .gogo-main{width:72px;font-size:20px}
   .gogo-chance{font-size:16px;bottom:3px}
 }
 
