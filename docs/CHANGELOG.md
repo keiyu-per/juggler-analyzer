@@ -59,6 +59,7 @@
 | CR-2026-006 | 2026-10-03 | Feature / UI/UX | 画面左固定ブドウカウンター | Implemented | `index.html`, `assets/css/app.css`, `assets/js/app.js` |
 | CR-2026-007 | 2026-10-03 | Feature | ChatGPT共有プロンプトの目的別テンプレート化 | Implemented | `assets/js/prompts.js`, `assets/js/app.js` |
 | CR-2026-008 | 2026-10-03 | UI/UX | ブドウカウンターのサイズ・縦位置調整 | Implemented | `assets/css/app.css`, `docs/SPECIFICATION.md` |
+| CR-2026-009 | 2026-10-07 | Feature / UI/UX | GOGOショートカットで総回転数入力へ移動 | Implemented | `index.html`, `assets/css/app.css`, `assets/js/app.js`, `docs/SPECIFICATION.md` |
 
 ## 7. 変更詳細
 
@@ -190,3 +191,18 @@ CRステータスは、コード実装と静的・ロジック検証まで完了
 - **対象ファイル:** `assets/css/app.css`, `docs/SPECIFICATION.md`
 - **データ互換性:** 影響なし
 - **確認項目:** iPhone縦画面での押しやすさ、本文との重なり、スクロール時の固定位置。
+
+
+### CR-2026-009 — GOGOショートカットで総回転数入力へ移動
+- **日付:** 2026-10-07
+- **Type:** Feature / UI/UX
+- **Status:** Implemented
+- **要求・背景:** ペカリ発生時に入力を行うため、現在データの総回転数へ即座に移動したい。
+- **目的:** 実戦中の入力導線を短縮する。
+- **変更前:** 画面を手動スクロールして総回転数欄を探して入力。
+- **変更後:** 画面右上に固定のGOGOショートカットを配置。押下で総回転数入力欄へスクロールし、その欄へフォーカスする。
+- **デザイン:** 黒基調に紫〜ピンクの発光、GOGO!/CHANCE表記のペカリ風UI。
+- **影響範囲:** 入力導線・表示のみ。設定推測ロジック、保存データへの影響なし。
+- **対象ファイル:** `index.html`, `assets/css/app.css`, `assets/js/app.js`, `docs/SPECIFICATION.md`
+- **データ互換性:** 影響なし
+- **確認項目:** iPhoneでの固定表示、タップ時の総回転数欄への移動、フォーカス・数字キーボード起動、既存ブドウカウンターとの干渉。
